@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Traveler</title>
-
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header class="header">
-            <div class="logo">logo자리</div>
-            <div class="search"><input type="text"></div>
-            <div class="gnb">
-                <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                </ul>
-            </div>
-        </header>
-        <div class="main">
-            <nav class="sidebar"></nav>
-            <div class="contents">
-                <div class="expense">
-                    <!-- <div class="expense__date-container">
+      <header class="header">
+        <div class="logo">logo자리</div>
+        <div class="search"><input type="text" /></div>
+        <div class="gnb">
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+        </div>
+      </header>
+      <div class="main">
+        <nav class="sidebar"></nav>
+        <div class="contents">
+          <div class="expense">
+            <!-- <div class="expense__date-container">
                         <a href="#20190304" class="expense__date" data-date="20190304">4</a>
                         <a href="#20190305" class="expense__date" data-date="20190305">5</a>
                         <a href="#20190306" class="expense__date" data-date="20190306">6</a>
@@ -34,129 +33,140 @@
                         <a href="#20190309" class="expense__date" data-date="20190309">9</a>
                         
                     </div> -->
-                    <div class="expense__tabs">
-                        <a href="#eat" class="expense__tab">Eat</a>
-                        <a href="#take" class="expense__tab">Take</a>
-                        <a href="#see" class="expense__tab">See</a>
-                        <a href="#shop" class="expense__tab">Shop</a>
-                        <a href="#sleep" class="expense__tab">Sleep</a>
-                        <a href="#etc" class="expense__tab">Etc</a>
-                    </div>
-                    <div class="expense__panel">
-                        <form class="expense__search-form">
-                            <!-- <button type="submit" class="expense__search-btn">검색</button> -->
-                            <div class="filer">
-                                <div class="filter__type-holder">
-                                    <input type="radio" class="filter__type" name="inc_type" id="inc_all" checked>
-                                    <label for="inc_all">전체</label>    
-                                </div>
-                                <div class="filter__type-holder">
-                                    <input type="radio" class="filter__type" name="inc_type" id="inc_card">
-                                    <label for="inc_card">카드</label>    
-                                </div>
-                                <div class="filter__type-holder">
-                                    <input type="radio" class="filter__type" name="inc_type" id="inc_cash">
-                                    <label for="inc_cash">현금</label>    
-                                </div>
-                            </div>
-                            <div class="expense__sort-btns">
-                                <button type="button" class="expense__sort-btn-higher-price">금액높은순</button>
-                                <button type="button" class="expense__sort-btn-lower-price">금액낮은순</button>
-                                <button type="button" class="expense__sort-date">시간순</button>
-                            </div>
-                            
-                            <input type="text" class="expense__search-field" placeholder="검색하세요">
-                            <button type="button" class="expense__search-close-btn">검색창 닫기</button>
-
-                        </form>
-                        <div class="expense__results">
-                            <div class="expense__list">
-
-                            </div>
-                            <div class="expense__paging">
-                           
-                            </div>
-                            
-                        </div>
-                        
-                             
-                    </div>
-                    <div class="expense__calculator">
-                        <div class="change__currency-btn-container">
-                            <button type="button" id="EUR" class="btn expense__currency-EUR" data-currency= "EUR">EUR</button>
-                            <button type="button" id="KRW" class="btn expense__currency-KRW" data-currency= "KRW">KRW</button>
-                        </div>
-                        <div class="add__container">
-                            <form class="add__expense-form">
-                                <input type="text" class="add__expense-title" placeholder="title" value="주스">
-                                <input type="number" class="add__expense-price" placeholder="value" value="4000">
-                                
-                                <select class="add__expense-type">
-                                        <option value="cash">cash</option>
-                                        <option value="card">card</option>
-                                    </select>    
-                                    <button type="button" class="add__expense-btn">추가</button>
-                                <button type="button" class="update__expense-btn">업데이트</button>
-                                </form>
-                                
-                        </div>
-                    </div>
-                </div>
-                <div class="chart">
-                   
-
-
-
-                </div>
+            <div class="expense__tabs">
+              <a href="#eat" class="expense__tab">Eat</a>
+              <a href="#take" class="expense__tab">Take</a>
+              <a href="#see" class="expense__tab">See</a>
+              <a href="#shop" class="expense__tab">Shop</a>
+              <a href="#sleep" class="expense__tab">Sleep</a>
+              <a href="#etc" class="expense__tab">Etc</a>
             </div>
+            <div class="expense__panel">
+              <form class="expense__search-form">
+                <!-- <button type="submit" class="expense__search-btn">검색</button> -->
+                <div class="filer">
+                  <div class="filter__type-holder">
+                    <input
+                      type="radio"
+                      class="filter__type"
+                      name="inc_type"
+                      id="inc_all"
+                      checked
+                    />
+                    <label for="inc_all">전체</label>
+                  </div>
+                  <div class="filter__type-holder">
+                    <input
+                      type="radio"
+                      class="filter__type"
+                      name="inc_type"
+                      id="inc_card"
+                    />
+                    <label for="inc_card">카드</label>
+                  </div>
+                  <div class="filter__type-holder">
+                    <input
+                      type="radio"
+                      class="filter__type"
+                      name="inc_type"
+                      id="inc_cash"
+                    />
+                    <label for="inc_cash">현금</label>
+                  </div>
+                </div>
+                <div class="expense__sort-btns">
+                  <button type="button" class="expense__sort-btn-higher-price">
+                    금액높은순
+                  </button>
+                  <button type="button" class="expense__sort-btn-lower-price">
+                    금액낮은순
+                  </button>
+                  <button type="button" class="expense__sort-date">
+                    시간순
+                  </button>
+                </div>
+
+                <input
+                  type="text"
+                  class="expense__search-field"
+                  placeholder="검색하세요"
+                />
+                <button type="button" class="expense__search-close-btn">
+                  검색창 닫기
+                </button>
+              </form>
+              <div class="expense__results">
+                <div class="expense__list"></div>
+                <div class="expense__paging"></div>
+              </div>
+            </div>
+            <div class="expense__calculator">
+              <div class="change__currency-btn-container">
+                <button
+                  type="button"
+                  id="EUR"
+                  class="btn expense__currency-EUR"
+                  data-currency="EUR"
+                >
+                  EUR
+                </button>
+                <button
+                  type="button"
+                  id="KRW"
+                  class="btn expense__currency-KRW"
+                  data-currency="KRW"
+                >
+                  KRW
+                </button>
+              </div>
+              <div class="add__container">
+                <form class="add__expense-form">
+                  <input
+                    type="text"
+                    class="add__expense-title"
+                    placeholder="title"
+                    value="주스"
+                  />
+                  <input
+                    type="number"
+                    class="add__expense-price"
+                    placeholder="value"
+                    value="4000"
+                  />
+
+                  <select class="add__expense-method">
+                    <option value="cash">cash</option>
+                    <option value="card">card</option>
+                  </select>
+                  <button type="submit" class="add__expense-btn">추가</button>
+                  <button type="button" class="update__expense-btn">
+                    업데이트
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="chart"></div>
         </div>
-        
+      </div>
     </div>
-    <script src="//d3js.org/d3.v3.min.js"></script>
-    <script>
-//          var data = [1, 1, 2, 3, 5, 8, 13, 21];
-//         var width = 960,
-//     height = 500,
-//     radius = height / 2 - 10;
-
-// var arc = d3.svg.arc()
-//     .innerRadius(radius - 40)
-//     .outerRadius(radius);
-
-// var pie = d3.layout.pie()
-//     .padAngle(.02);
-
-// var color = d3.scale.category10();
-
-// var svg = d3.select(".chart").append("svg")
-//     .attr("width", width)
-//     .attr("height", height)
-//   .append("g")
-//     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-// svg.selectAll("path")
-//     .data(pie(data))
-//   .enter().append("path")
-//     .style("fill", function(d, i) { return color(i); })
-//     .attr("d", arc);
-    </script>
-</body>
+  </body>
 </html>
 
 <style>
-.update__expense-btn{
+  .update__expense-btn {
     display: none;
-}
+  }
 
-.expense__list{
+  .expense__list {
     margin: 60px 0;
-}
+  }
 
-.item{
+  .item {
     margin-bottom: 6px;
-}
+  }
 
-.filter__type-holder{
+  .filter__type-holder {
     display: inline-block;
-}
+  }
 </style>
