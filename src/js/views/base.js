@@ -1,5 +1,6 @@
 export const elements = {
-  formExpense: document.querySelector(".add__expense-form")
+  formExpense: document.querySelector(".add__expense-form"),
+  tabs: document.querySelector(".expense__tabs")
 };
 
 export const elementsClass = {
