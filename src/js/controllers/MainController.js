@@ -1,6 +1,8 @@
 import { elements } from "../views/base";
 import FormView from "../views/FormView";
 import TabView from "../views/TabView";
+import ExpenseModel from "../models/ExpenseModel";
+import ExpenseView from "../views/ExpenseView";
 
 export default {
   init() {
@@ -10,8 +12,10 @@ export default {
 
     TabView.setup(document.defaultView).on("@hashchange", e =>
       this.getResult(e.detail.tabName)
-    ); //주어진 문서에 대한 window는 docuent.defaultView속성을 사용하여 얻을 수 있다.
+    );
 
+    ExpenseView.setup(document.querySelector(".expense__list"));
+    this.state = {};
     this.getResult(TabView.tabName);
   },
 
@@ -19,7 +23,19 @@ export default {
     console.log(obj);
   },
 
-  getResult(tab) {
-    console.log(tab);
+  async getResult(tab) {
+    ExpenseView.clearResults();
+
+    if (!this.state[tab]) {
+      this.state[tab] = new ExpenseModel(tab);
+      try {
+        await this.state[tab].retrieveData();
+        ExpenseView.renderResults(this.state[tab].results);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      ExpenseView.renderResults(this.state[tab].results);
+    }
   }
 };
