@@ -87,4 +87,6 @@ export default class Expense {
       console.log(err);
     }
   }
+
+  async createData(category) {}
 }

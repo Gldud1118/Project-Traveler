@@ -20,22 +20,30 @@ export default {
   },
 
   onSubmit(obj) {
-    console.log(obj);
+    this.addExpense(obj);
+  },
+
+  async addExpense(item) {
+    console.log(this.state[this.state.currentTab]);
+    //this.state.currentTab.createData();
+    ExpenseView.renderItem(item);
   },
 
   async getResult(tab) {
-    ExpenseView.clearResults();
-
-    if (!this.state[tab]) {
-      this.state[tab] = new ExpenseModel(tab);
-      try {
-        await this.state[tab].retrieveData();
+    if (tab) {
+      ExpenseView.clearResults();
+      if (!this.state[tab]) {
+        this.state.currentTab = tab;
+        this.state[tab] = new ExpenseModel(tab);
+        try {
+          await this.state[tab].retrieveData();
+          ExpenseView.renderResults(this.state[tab].results);
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
         ExpenseView.renderResults(this.state[tab].results);
-      } catch (err) {
-        console.log(err);
       }
-    } else {
-      ExpenseView.renderResults(this.state[tab].results);
     }
   }
 };
