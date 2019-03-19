@@ -4,6 +4,7 @@ import TabView from "../views/TabView";
 import ExpenseModel from "../models/ExpenseModel";
 import ExpenseView from "../views/ExpenseView";
 import SearchView from "../views/SearchView";
+import FilterSortView from "../views/FilterSortView";
 
 export default {
   init() {
@@ -24,6 +25,10 @@ export default {
       this.getSearchInput(e.detail.input);
     });
 
+    FilterSortView.setup(elements.formFilterSortExpense)
+      .on("@filter", e => this.onFilter(e.detail.type))
+      .on("@sort", e => this.onSort(e.detail.type));
+
     this.state = { allCategories: {} };
     this.getResult(TabView.tabName);
   },
@@ -39,6 +44,14 @@ export default {
 
   onUpdateCancel() {
     this.clearUpdate();
+  },
+
+  onFilter(type) {
+    this.filterExpense(type);
+  },
+
+  onSort(type) {
+    this.sortExpense(type);
   },
 
   clearUpdate() {
@@ -71,6 +84,38 @@ export default {
 
       ExpenseView.renderResults(searchResults);
     }
+  },
+
+  filterExpense(type) {
+    const currentTab = this.state.allCategories[this.state.currentTab];
+    currentTab.filterResults = [];
+    ExpenseView.clearResults();
+
+    if (type === "all") {
+      currentTab.filterResults = JSON.parse(JSON.stringify(currentTab.results));
+    } else {
+      currentTab.results.forEach(item => {
+        if (item.type === type) {
+          currentTab.filterResults.push(item);
+        }
+      });
+    }
+    ExpenseView.renderResults(currentTab.filterResults);
+  },
+
+  sortExpense(sort) {
+    const currentTab = this.state.allCategories[this.state.currentTab];
+    ExpenseView.clearResults();
+    if (!currentTab.filterResults.length) {
+      currentTab.filterResults = JSON.parse(JSON.stringify(currentTab.results));
+    }
+    if (sort === "high") {
+      currentTab.filterResults.sort((a, b) => a.price - b.price);
+    } else if (sort === "low") {
+      currentTab.filterResults.sort((a, b) => b.price - a.price);
+    }
+
+    ExpenseView.renderResults(currentTab.filterResults);
   },
 
   async editExpense(item) {
@@ -116,8 +161,10 @@ export default {
 
   async getResult(tab) {
     if (tab) {
-      ExpenseView.clearResults();
       this.state.currentTab = tab;
+      ExpenseView.clearResults();
+      FilterSortView.changeType();
+
       if (!this.state.allCategories[tab]) {
         this.state.allCategories[tab] = new ExpenseModel(tab);
         try {

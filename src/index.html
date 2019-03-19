@@ -48,8 +48,7 @@
               </ul>
             </div>
             <div class="expense__panel">
-              <form class="expense__search-form">
-                <!-- <button type="submit" class="expense__search-btn">검색</button> -->
+              <form class="expense__filter-form">
                 <div class="filer">
                   <div class="filter__type-holder">
                     <input
@@ -81,16 +80,16 @@
                   </div>
                 </div>
                 <div class="expense__sort-btns">
-                  <button type="button" class="expense__sort-btn-higher-price">
+                  <button type="button" class="expense__sort-btn" id="high">
                     금액높은순
                   </button>
-                  <button type="button" class="expense__sort-btn-lower-price">
+                  <button type="button" class="expense__sort-btn" id="low">
                     금액낮은순
                   </button>
-                  <button type="button" class="expense__sort-date">
-                    시간순
-                  </button>
                 </div>
+              </form>
+              <form class="expense__search-form">
+                <!-- <button type="submit" class="expense__search-btn">검색</button> -->
 
                 <input
                   type="text"

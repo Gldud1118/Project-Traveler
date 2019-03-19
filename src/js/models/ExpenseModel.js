@@ -5,6 +5,7 @@ export default class Expense {
   constructor(category) {
     this.category = category;
     this.results = [];
+    this.filterResults = [];
   }
   async createData(item) {
     const id = uniqid();
