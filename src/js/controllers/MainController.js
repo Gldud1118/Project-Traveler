@@ -3,6 +3,7 @@ import FormView from "../views/FormView";
 import TabView from "../views/TabView";
 import ExpenseModel from "../models/ExpenseModel";
 import ExpenseView from "../views/ExpenseView";
+import SearchView from "../views/SearchView";
 
 export default {
   init() {
@@ -18,6 +19,11 @@ export default {
     ExpenseView.setup(elements.containerExpense).on("@click", e => {
       this.getEvent(e.detail);
     });
+
+    SearchView.setup(elements.formSearchExpense).on("@keyup", e => {
+      this.getSearchInput(e.detail.input);
+    });
+
     this.state = { allCategories: {} };
     this.getResult(TabView.tabName);
   },
@@ -41,11 +47,29 @@ export default {
     ExpenseView.displayButtons();
   },
 
+  getSearchInput(input) {
+    this.searchExpense(input);
+  },
+
   getEvent(event) {
     if (event.name === "delete") {
       this.deleteExpense(event.id);
     } else if (event.name === "edit") {
       this.editExpense(event);
+    }
+  },
+
+  searchExpense(query) {
+    const currentTab = this.state.allCategories[this.state.currentTab];
+    if (currentTab) {
+      ExpenseView.clearResults();
+      const searchWord = query.toLowerCase();
+      const searchResults = currentTab.results.filter(item => {
+        const dataTitle = item.title.toLowerCase();
+        return dataTitle.indexOf(searchWord) !== -1;
+      });
+
+      ExpenseView.renderResults(searchResults);
     }
   },
 
