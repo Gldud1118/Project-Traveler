@@ -1,8 +1,8 @@
 import { elements } from "../views/base";
 import FormView from "../views/FormView";
 import TabView from "../views/TabView";
-import ExpenseModel from "../models/ExpenseModel";
 import ExpenseView from "../views/ExpenseView";
+import ExpenseModel from "../models/ExpenseModel";
 
 export default {
   init() {
@@ -14,8 +14,8 @@ export default {
       this.getResult(e.detail.tabName)
     );
 
-    ExpenseView.setup(document.querySelector(".expense__list"));
-    this.state = {};
+    ExpenseView.setup(elements.containerExpense);
+    this.state = { allCategories: {} };
     this.getResult(TabView.tabName);
   },
 
@@ -24,25 +24,29 @@ export default {
   },
 
   async addExpense(item) {
-    console.log(this.state[this.state.currentTab]);
-    //this.state.currentTab.createData();
-    ExpenseView.renderItem(item);
+    const currentTab = this.state.allCategories[this.state.currentTab];
+    try {
+      const newItem = await currentTab.createData(item);
+      ExpenseView.renderItem(newItem);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   async getResult(tab) {
     if (tab) {
       ExpenseView.clearResults();
-      if (!this.state[tab]) {
-        this.state.currentTab = tab;
-        this.state[tab] = new ExpenseModel(tab);
+      this.state.currentTab = tab;
+      if (!this.state.allCategories[tab]) {
+        this.state.allCategories[tab] = new ExpenseModel(tab);
         try {
-          await this.state[tab].retrieveData();
-          ExpenseView.renderResults(this.state[tab].results);
+          await this.state.allCategories[tab].retrieveData();
+          ExpenseView.renderResults(this.state.allCategories[tab].results);
         } catch (err) {
           console.log(err);
         }
       } else {
-        ExpenseView.renderResults(this.state[tab].results);
+        ExpenseView.renderResults(this.state.allCategories[tab].results);
       }
     }
   }

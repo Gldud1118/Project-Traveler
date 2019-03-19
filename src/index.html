@@ -131,22 +131,25 @@
                     type="text"
                     class="add__expense-title"
                     placeholder="title"
-                    value="주스"
+                    value=""
                   />
                   <input
                     type="number"
                     class="add__expense-price"
                     placeholder="value"
-                    value="4000"
+                    value=""
                   />
 
                   <select class="add__expense-method">
                     <option value="cash">cash</option>
                     <option value="card">card</option>
                   </select>
-                  <button type="submit" class="add__expense-btn">추가</button>
+                  <button type="button" class="add__expense-btn">추가</button>
                   <button type="button" class="update__expense-btn">
                     업데이트
+                  </button>
+                  <button type="button" class="cancel__expense-btn">
+                    취소
                   </button>
                 </form>
               </div>
@@ -161,6 +164,10 @@
 
 <style>
   .update__expense-btn {
+    display: none;
+  }
+
+  .cancel__expense-btn {
     display: none;
   }
 

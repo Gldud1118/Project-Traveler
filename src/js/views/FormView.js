@@ -9,13 +9,13 @@ FormView.setup = function(el) {
   this.inputPriceEl = el.querySelector(elementsClass.inputPrice);
   this.inputMethodEl = el.querySelector(elementsClass.inputMethod);
   this.addEl = el.querySelector(elementsClass.btnAddExpense);
-  this.registerEvent();
+  this.registerEvents();
   return this;
 };
 
-FormView.registerEvent = function() {
+FormView.registerEvents = function() {
   this.on("submit", e => e.preventDefault());
-  this.el.addEventListener("submit", () => this.onClickCreate());
+  this.addEl.addEventListener("click", () => this.onClickCreate());
 };
 
 FormView.onClickCreate = function() {
@@ -24,6 +24,13 @@ FormView.onClickCreate = function() {
     price: this.inputPriceEl.value,
     type: this.inputMethodEl.value
   });
+
+  this.clearForm();
+};
+
+FormView.clearForm = function() {
+  this.inputTitleEl.value = "";
+  this.inputPriceEl.value = "";
 };
 
 export default FormView;
