@@ -1,92 +1,96 @@
-const data = {
-  eat: [
-    {
-      id: 0,
-      title: "코코넛 아이스크림",
-      price: 2000
-    },
-    {
-      id: 1,
-      title: "시카고 피자",
-      price: 2000
-    },
-    {
-      id: 2,
-      title: "탕수육",
-      price: 15000
-    }
-  ],
-  take: [
-    {
-      id: 0,
-      title: "비행기",
-      price: 700000
-    },
-    {
-      id: 1,
-      title: "기차",
-      price: 3500
-    },
-    {
-      id: 2,
-      title: "버스",
-      price: 1000
-    }
-  ],
-  see: [
-    {
-      id: 0,
-      title: "박물관",
-      price: 1800
-    },
-    {
-      id: 1,
-      title: "미술관",
-      price: 3400
-    },
-    {
-      id: 2,
-      title: "식물원",
-      price: 1000
-    }
-  ],
-  shop: [
-    {
-      id: 0,
-      title: "기념품",
-      price: 80000
-    }
-  ],
-  sleep: [
-    {
-      id: 0,
-      title: "호텔",
-      price: 60000
-    }
-  ],
-  etc: [
-    {
-      id: 0,
-      title: "기부",
-      price: 9000
-    }
-  ]
-};
+import uniqid from "uniqid";
+import db from "../config";
+
 export default class Expense {
   constructor(category) {
     this.category = category;
     this.results = [];
   }
+  async createData(item) {
+    const id = uniqid();
+
+    const newItem = {
+      id,
+      title: item.title,
+      price: item.price,
+      type: item.type
+    };
+    try {
+      await db
+        .collection("expense")
+        .doc(this.category)
+        .collection("allItems")
+        .doc(id)
+        .set(item);
+
+      this.results.push(newItem);
+    } catch (err) {
+      console.log(err);
+    }
+
+    return newItem;
+  }
+
+  async updateData(item) {
+    const { id, title, price, type } = item;
+    try {
+      await db
+        .collection("expense")
+        .doc(this.category)
+        .collection("allItems")
+        .doc(id)
+        .update({
+          title,
+          price,
+          type
+        });
+    } catch (err) {
+      console.log(err);
+    }
+
+    this.results.forEach((item, index) => {
+      if (item.id === id) {
+        this.results[index].title = title;
+        this.results[index].price = price;
+        this.results[index].type = type;
+      }
+    });
+  }
 
   async retrieveData() {
     try {
-      await data[this.category].forEach(item => {
-        this.results.push(item);
-      });
+      await db
+        .collection("expense")
+        .doc(this.category)
+        .collection("allItems")
+        .get()
+        .then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            const res = doc.data();
+            res.id = doc.id;
+            this.results.push(res);
+          });
+        });
     } catch (err) {
       console.log(err);
     }
   }
 
-  async createData(category) {}
+  async deleteData(id) {
+    try {
+      await db
+        .collection("expense")
+        .doc(this.category)
+        .collection("allItems")
+        .doc(id)
+        .delete();
+      this.results.forEach((item, index) => {
+        if (item.id === id) {
+          this.results.splice(index, 1);
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
