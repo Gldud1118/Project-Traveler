@@ -55,9 +55,9 @@ export default {
   },
 
   clearUpdate() {
-    FormView.hideButtons();
+    FormView.showUpdateButtons(false);
     FormView.clearForm();
-    ExpenseView.displayButtons();
+    ExpenseView.showButtons(true);
   },
 
   getSearchInput(input) {
@@ -86,45 +86,13 @@ export default {
     }
   },
 
-  filterExpense(type) {
-    const currentTab = this.state.allCategories[this.state.currentTab];
-    currentTab.filterResults = [];
-    ExpenseView.clearResults();
-
-    if (type === "all") {
-      currentTab.filterResults = JSON.parse(JSON.stringify(currentTab.results));
-    } else {
-      currentTab.results.forEach(item => {
-        if (item.type === type) {
-          currentTab.filterResults.push(item);
-        }
-      });
-    }
-    ExpenseView.renderResults(currentTab.filterResults);
-  },
-
-  sortExpense(sort) {
-    const currentTab = this.state.allCategories[this.state.currentTab];
-    ExpenseView.clearResults();
-    if (!currentTab.filterResults.length) {
-      currentTab.filterResults = JSON.parse(JSON.stringify(currentTab.results));
-    }
-    if (sort === "high") {
-      currentTab.filterResults.sort((a, b) => a.price - b.price);
-    } else if (sort === "low") {
-      currentTab.filterResults.sort((a, b) => b.price - a.price);
-    }
-
-    ExpenseView.renderResults(currentTab.filterResults);
-  },
-
   async editExpense(item) {
     if (item) {
       const { id, title, price, type } = item;
       this.state.editItemId = id;
       FormView.displayCurrentItem(title, price, type);
-      FormView.displayButtons();
-      ExpenseView.hideButtons();
+      FormView.showUpdateButtons(true);
+      ExpenseView.showButtons(false);
     }
   },
 
@@ -177,5 +145,37 @@ export default {
         ExpenseView.renderResults(this.state.allCategories[tab].results);
       }
     }
+  },
+
+  filterExpense(type) {
+    const currentTab = this.state.allCategories[this.state.currentTab];
+    currentTab.filterResults = [];
+    ExpenseView.clearResults();
+
+    if (type === "all") {
+      currentTab.filterResults = JSON.parse(JSON.stringify(currentTab.results));
+    } else {
+      currentTab.results.forEach(item => {
+        if (item.type === type) {
+          currentTab.filterResults.push(item);
+        }
+      });
+    }
+    ExpenseView.renderResults(currentTab.filterResults);
+  },
+
+  sortExpense(sort) {
+    const currentTab = this.state.allCategories[this.state.currentTab];
+    ExpenseView.clearResults();
+    if (!currentTab.filterResults.length) {
+      currentTab.filterResults = JSON.parse(JSON.stringify(currentTab.results));
+    }
+    if (sort === "high") {
+      currentTab.filterResults.sort((a, b) => a.price - b.price);
+    } else if (sort === "low") {
+      currentTab.filterResults.sort((a, b) => b.price - a.price);
+    }
+
+    ExpenseView.renderResults(currentTab.filterResults);
   }
 };

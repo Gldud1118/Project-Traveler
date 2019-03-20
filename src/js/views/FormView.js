@@ -1,5 +1,5 @@
 import { elementsClass } from "./base";
-import View from "./View";
+import View from "./view";
 
 const FormView = Object.create(View);
 
@@ -11,6 +11,7 @@ FormView.setup = function(el) {
   this.addEl = el.querySelector(elementsClass.btnAddExpense);
   this.updateEl = el.querySelector(elementsClass.btnUpdateExpense);
   this.updateCancelEl = el.querySelector(elementsClass.btnUpdateCancelExpense);
+  this.showUpdateButtons(false);
   this.registerEvents();
   return this;
 };
@@ -54,16 +55,10 @@ FormView.displayCurrentItem = function(title, price, type) {
   this.inputMethodEl.value = type;
 };
 
-FormView.displayButtons = function() {
-  this.updateEl.style.display = "block";
-  this.updateCancelEl.style.display = "block";
-  this.addEl.style.display = "none";
-};
-
-FormView.hideButtons = function() {
-  this.updateEl.style.display = "none";
-  this.updateCancelEl.style.display = "none";
-  this.addEl.style.display = "block";
+FormView.showUpdateButtons = function(show = false) {
+  this.updateEl.style.display = show ? "inline" : "none";
+  this.updateCancelEl.style.display = show ? "inline" : "none";
+  this.addEl.style.display = show ? "none" : "inline";
 };
 
 FormView.clearForm = function() {

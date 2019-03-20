@@ -19,15 +19,12 @@ SearchView.showResetBtn = function(show = true) {
 SearchView.bindEvents = function() {
   this.on("submit", e => e.preventDefault());
   this.inputEl.addEventListener("keyup", e => this.onKeyup(e));
-  this.resetEl.addEventListener("click", e => this.onClickReset());
+  this.resetEl.addEventListener("click", () => this.onClickReset());
 };
 
 SearchView.onKeyup = function() {
-  //const enter = 13;
   this.showResetBtn(this.inputEl.value.length);
-
   if (!this.inputEl.value.length) this.emit("@reset");
-  //if (e.keyCode !== enter) return;
   this.emit("@keyup", { input: this.inputEl.value });
 };
 

@@ -4,6 +4,7 @@ const ExpenseView = Object.create(View);
 
 ExpenseView.setup = function(el) {
   this.init(el);
+  this.showButtons(true);
   this.registerEvents();
   return this;
 };
@@ -32,15 +33,9 @@ ExpenseView.getEvents = function(target) {
   }
 };
 
-ExpenseView.hideButtons = function() {
+ExpenseView.showButtons = function(show = true) {
   this.el.querySelectorAll("button").forEach(item => {
-    item.style.display = "none";
-  });
-};
-
-ExpenseView.displayButtons = function() {
-  this.el.querySelectorAll("button").forEach(item => {
-    item.style.display = "inline";
+    item.style.display = show ? "inline" : "none";
   });
 };
 
