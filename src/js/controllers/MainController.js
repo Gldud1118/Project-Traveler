@@ -5,6 +5,7 @@ import ExpenseModel from "../models/ExpenseModel";
 import ExpenseView from "../views/ExpenseView";
 import SearchView from "../views/SearchView";
 import FilterSortView from "../views/FilterSortView";
+import "../views/ChartView";
 
 export default {
   init() {
@@ -100,8 +101,8 @@ export default {
     const currentTab = this.state.allCategories[this.state.currentTab];
     item.id = this.state.editItemId;
     try {
-      await currentTab.updateData(item);
       ExpenseView.renderUpdatedItem(item);
+      await currentTab.updateData(item);
     } catch (err) {
       console.log(err);
     }
@@ -110,8 +111,8 @@ export default {
   async deleteExpense(id) {
     const currentTab = this.state.allCategories[this.state.currentTab];
     try {
-      await currentTab.deleteData(id);
       ExpenseView.deleteItem(id);
+      await currentTab.deleteData(id);
     } catch (err) {
       console.log(err);
     }
