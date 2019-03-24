@@ -1,97 +1,37 @@
-import uniqid from "uniqid";
 import db from "../config";
 
 export default class Expense {
-  constructor(category) {
-    this.category = category;
-    this.results = [];
-    this.filterResults = [];
-  }
-  async createData(item) {
-    const id = uniqid();
-
-    const newItem = {
-      id,
-      title: item.title,
-      price: item.price,
-      type: item.type
-    };
-    try {
-      await db
-        .collection("expense")
-        .doc(this.category)
-        .collection("allItems")
-        .doc(id)
-        .set(item);
-
-      this.results.push(newItem);
-    } catch (err) {
-      console.log(err);
-    }
-
-    return newItem;
+  constructor() {
+    this.expense = [];
   }
 
-  async updateData(item) {
-    const { id, title, price, type } = item;
-    try {
-      await db
-        .collection("expense")
-        .doc(this.category)
-        .collection("allItems")
-        .doc(id)
-        .update({
-          title,
-          price,
-          type
-        });
-    } catch (err) {
-      console.log(err);
-    }
-
-    this.results.forEach((item, index) => {
-      if (item.id === id) {
-        this.results[index].title = title;
-        this.results[index].price = price;
-        this.results[index].type = type;
+  async updateData(category, expense) {
+    const { total, card, cash } = expense;
+    this.expense.forEach((item, index) => {
+      if (item.category === category) {
+        this.expense[index].total = total;
+        this.expense[index].card = card;
+        this.expense[index].cash = cash;
       }
     });
+    const docRef = db.collection("expenses").doc(category);
+    await docRef.set({ category, total, card, cash });
   }
 
   async retrieveData() {
-    try {
-      await db
-        .collection("expense")
-        .doc(this.category)
-        .collection("allItems")
-        .get()
-        .then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            const res = doc.data();
-            res.id = doc.id;
-            this.results.push(res);
-          });
+    await db
+      .collection("expenses")
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(async doc => {
+          if (!doc.data()) {
+            await db
+              .collection("expenses")
+              .doc(doc.id)
+              .set({ category: doc.id, total: 0, cash: 0, card: 0 });
+          }
+          this.expense.push(doc.data());
         });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async deleteData(id) {
-    try {
-      await db
-        .collection("expense")
-        .doc(this.category)
-        .collection("allItems")
-        .doc(id)
-        .delete();
-      this.results.forEach((item, index) => {
-        if (item.id === id) {
-          this.results.splice(index, 1);
-        }
       });
-    } catch (err) {
-      console.log(err);
-    }
   }
 }

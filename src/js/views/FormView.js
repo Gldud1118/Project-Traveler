@@ -28,7 +28,7 @@ FormView.registerEvents = function() {
 FormView.onClickCreate = function() {
   this.emit("@submit", {
     title: this.inputTitleEl.value,
-    price: this.inputPriceEl.value,
+    price: parseInt(this.inputPriceEl.value),
     type: this.inputMethodEl.value
   });
 
@@ -38,7 +38,7 @@ FormView.onClickCreate = function() {
 FormView.onClickUpdate = function() {
   this.emit("@update", {
     title: this.inputTitleEl.value,
-    price: this.inputPriceEl.value,
+    price: parseInt(this.inputPriceEl.value),
     type: this.inputMethodEl.value
   });
 

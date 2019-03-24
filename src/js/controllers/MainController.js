@@ -1,14 +1,16 @@
 import { elements } from "../views/base";
 import FormView from "../views/FormView";
 import TabView from "../views/TabView";
+import CategoryModel from "../models/CategoryModel";
 import ExpenseModel from "../models/ExpenseModel";
 import ExpenseView from "../views/ExpenseView";
 import SearchView from "../views/SearchView";
 import FilterSortView from "../views/FilterSortView";
-import "../views/ChartView";
+import ChartView from "../views/ChartView";
 
 export default {
-  init() {
+  async init() {
+    this.getLocation();
     FormView.setup(elements.formExpense)
       .on("@submit", e => this.onSubmit(e.detail))
       .on("@update", e => this.onUpdate(e.detail))
@@ -31,11 +33,28 @@ export default {
       .on("@sort", e => this.onSort(e.detail.type));
 
     this.state = { allCategories: {} };
+    await this.getExpense();
+
+    ChartView.setup(document.querySelector(".canvas")).drawPieChart(
+      this.state.total.expense
+    );
+
     this.getResult(TabView.tabName);
   },
 
   onSubmit(obj) {
     this.addExpense(obj);
+  },
+
+  getLocation() {
+    if (window.location.href === window.location.origin + "/") {
+      window.location.href = window.location.origin + "/#eat";
+    }
+  },
+
+  async getExpense() {
+    this.state.total = new ExpenseModel();
+    await this.state.total.retrieveData();
   },
 
   onUpdate(obj) {
@@ -101,8 +120,11 @@ export default {
     const currentTab = this.state.allCategories[this.state.currentTab];
     item.id = this.state.editItemId;
     try {
-      ExpenseView.renderUpdatedItem(item);
       await currentTab.updateData(item);
+      ExpenseView.renderUpdatedItem(item);
+      const expense = currentTab.getTotalExpense();
+      await this.state.total.updateData(this.state.currentTab, expense);
+      ChartView.updatePie(this.state.total.expense);
     } catch (err) {
       console.log(err);
     }
@@ -111,8 +133,11 @@ export default {
   async deleteExpense(id) {
     const currentTab = this.state.allCategories[this.state.currentTab];
     try {
-      ExpenseView.deleteItem(id);
       await currentTab.deleteData(id);
+      ExpenseView.deleteItem(id);
+      const expense = currentTab.getTotalExpense();
+      await this.state.total.updateData(this.state.currentTab, expense);
+      ChartView.updatePie(this.state.total.expense);
     } catch (err) {
       console.log(err);
     }
@@ -122,7 +147,10 @@ export default {
     const currentTab = this.state.allCategories[this.state.currentTab];
     try {
       const newItem = await currentTab.createData(item);
+      const expense = currentTab.getTotalExpense();
+      await this.state.total.updateData(this.state.currentTab, expense);
       ExpenseView.renderItem(newItem);
+      ChartView.updatePie(this.state.total.expense);
     } catch (err) {
       console.log(err);
     }
@@ -135,7 +163,7 @@ export default {
       FilterSortView.changeType();
 
       if (!this.state.allCategories[tab]) {
-        this.state.allCategories[tab] = new ExpenseModel(tab);
+        this.state.allCategories[tab] = new CategoryModel(tab);
         try {
           await this.state.allCategories[tab].retrieveData();
           ExpenseView.renderResults(this.state.allCategories[tab].results);
