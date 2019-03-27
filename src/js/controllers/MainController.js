@@ -6,7 +6,6 @@ import ExpenseModel from "../models/ExpenseModel";
 import ExpenseView from "../views/ExpenseView";
 import SearchView from "../views/SearchView";
 import FilterSortView from "../views/FilterSortView";
-import ChartView from "../views/ChartView";
 
 export default {
   async init() {
@@ -34,10 +33,6 @@ export default {
 
     this.state = { allCategories: {} };
     await this.getExpense();
-
-    ChartView.setup(document.querySelector(".canvas")).drawPieChart(
-      this.state.total.expense
-    );
 
     this.getResult(TabView.tabName);
   },
@@ -124,7 +119,6 @@ export default {
       ExpenseView.renderUpdatedItem(item);
       const expense = currentTab.getTotalExpense();
       await this.state.total.updateData(this.state.currentTab, expense);
-      ChartView.updatePie(this.state.total.expense);
     } catch (err) {
       console.log(err);
     }
@@ -137,7 +131,6 @@ export default {
       ExpenseView.deleteItem(id);
       const expense = currentTab.getTotalExpense();
       await this.state.total.updateData(this.state.currentTab, expense);
-      ChartView.updatePie(this.state.total.expense);
     } catch (err) {
       console.log(err);
     }
@@ -150,7 +143,6 @@ export default {
       const expense = currentTab.getTotalExpense();
       await this.state.total.updateData(this.state.currentTab, expense);
       ExpenseView.renderItem(newItem);
-      ChartView.updatePie(this.state.total.expense);
     } catch (err) {
       console.log(err);
     }
