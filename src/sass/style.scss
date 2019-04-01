@@ -67,10 +67,11 @@ body {
 }
 
 .expense {
+  display: flex;
   flex: 1;
 }
 
-.chart {
+.result {
   flex: 1;
 }
 

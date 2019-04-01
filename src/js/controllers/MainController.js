@@ -5,6 +5,7 @@ import CategoryModel from "../models/CategoryModel";
 import ExpenseModel from "../models/ExpenseModel";
 import ExpenseView from "../views/ExpenseView";
 import SearchView from "../views/SearchView";
+import ResultView from "../views/ResultView";
 import FilterSortView from "../views/FilterSortView";
 
 export default {
@@ -33,6 +34,7 @@ export default {
 
     this.state = { allCategories: {} };
     await this.getExpense();
+    ResultView.setup(document.querySelector(".result"));
 
     this.getResult(TabView.tabName);
   },
@@ -50,6 +52,7 @@ export default {
   async getExpense() {
     this.state.total = new ExpenseModel();
     await this.state.total.retrieveData();
+    ResultView.renderAllCategory(this.state.total);
   },
 
   onUpdate(obj) {
@@ -119,6 +122,7 @@ export default {
       ExpenseView.renderUpdatedItem(item);
       const expense = currentTab.getTotalExpense();
       await this.state.total.updateData(this.state.currentTab, expense);
+      ResultView.renderCurrentCategory(this.state.currentTab, expense);
     } catch (err) {
       console.log(err);
     }
@@ -131,6 +135,7 @@ export default {
       ExpenseView.deleteItem(id);
       const expense = currentTab.getTotalExpense();
       await this.state.total.updateData(this.state.currentTab, expense);
+      ResultView.renderCurrentCategory(this.state.currentTab, expense);
     } catch (err) {
       console.log(err);
     }
@@ -143,6 +148,7 @@ export default {
       const expense = currentTab.getTotalExpense();
       await this.state.total.updateData(this.state.currentTab, expense);
       ExpenseView.renderItem(newItem);
+      ResultView.renderCurrentCategory(this.state.currentTab, expense);
     } catch (err) {
       console.log(err);
     }
