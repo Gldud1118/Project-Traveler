@@ -1,9 +1,9 @@
 import { elements } from "../views/base";
 import FormView from "../views/FormView";
 import TabView from "../views/TabView";
+import ExpenseView from "../views/ExpenseView";
 import CategoryModel from "../models/CategoryModel";
 import ExpenseModel from "../models/ExpenseModel";
-import ExpenseView from "../views/ExpenseView";
 import SearchView from "../views/SearchView";
 import ResultView from "../views/ResultView";
 import FilterSortView from "../views/FilterSortView";
@@ -52,6 +52,7 @@ export default {
   async getExpense() {
     this.state.total = new ExpenseModel();
     await this.state.total.retrieveData();
+    console.log(this.state);
     ResultView.renderAllCategory(this.state.total);
   },
 

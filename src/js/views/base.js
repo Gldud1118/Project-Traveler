@@ -16,5 +16,5 @@ export const elementsClass = {
   inputTitle: ".add__expense-title",
   inputPrice: ".add__expense-price",
   inputMethod: ".add__expense-method",
-  filter: ".filter__type"
+  filter: ".expense__filter-type"
 };

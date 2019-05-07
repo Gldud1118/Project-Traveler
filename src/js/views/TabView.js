@@ -1,4 +1,4 @@
-import View from "./View";
+import View from "./view";
 import { elements } from "./base";
 
 const TabView = Object.create(View);
@@ -12,6 +12,7 @@ TabView.setup = function(el) {
 };
 
 TabView.hashEvent = function() {
+  this.el.addEventListener("load", () => this.getHash());
   this.el.addEventListener("hashchange", () => this.getHash());
 };
 
@@ -24,7 +25,10 @@ TabView.getHash = function() {
 
 TabView.setActiveTab = function(tabName) {
   Array.from(elements.tabs.querySelectorAll("li")).forEach(li => {
-    li.className = li.querySelector("a").innerHTML === tabName ? "active" : "";
+    li.className =
+      li.querySelector(".expense__tab-title").innerHTML === tabName
+        ? "active"
+        : "";
   });
   this.tabName = tabName;
   this.emit("@hashchange", {

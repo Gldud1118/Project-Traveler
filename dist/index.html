@@ -8,6 +8,12 @@
       href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <!-- <link rel="stylesheet" href="css/all.css" /> -->
     <link rel="stylesheet" href="css/style.css" />
     <title>Traveler</title>
@@ -15,97 +21,118 @@
   <body>
     <div class="container">
       <header class="header">
-        <div class="logo">logo자리</div>
-        <i class="far fa-calendar-alt"></i>
-        <div class="search"><input type="text" /></div>
-        <div class="gnb">
-          <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-          </ul>
-        </div>
+        <img src="img/logo.png" alt="trillo logo" class="logo" />
+
+        <!-- <form action="#" class="search">
+          <input
+            type="text"
+            class="search__input"
+            placeholder="Search hotels"
+          />
+          <button class="search__button">
+            <i class="fas fa-search search__icon"></i>
+          </button>
+        </form> -->
+
+        <nav class="user-nav">
+          <div class="user-nav__icon-box">
+            <svg class="user-nav__icon">
+              <use xlink:href="img/sprite.svg#icon-bookmark"></use>
+            </svg>
+            <span class="user-nav__notification">7</span>
+          </div>
+          <div class="user-nav__icon-box">
+            <i class="far fa-bell"></i>
+            <span class="user-nav__notification">13</span>
+          </div>
+          <div class="user-nav__user">
+            <img
+              src="img/user.jpg"
+              alt="User photo"
+              class="user-nav__user-photo"
+            />
+            <span class="user-nav__user-name">Nicole</span>
+          </div>
+        </nav>
       </header>
       <div class="main">
         <nav class="sidebar"></nav>
         <div class="contents">
           <div class="expense">
-            <div class="expense__filter">
+            <div class="expense__filters">
               <form class="expense__filter-form">
-                <div class="filer">
-                  <div class="filter__title">Filters</div>
-                  <div class="filter__type-holder">
+                <div class="expense__filter">
+                  <div class="expense__filter-title">Filters</div>
+                  <div class="expense__filter-type-holder">
                     <input
                       type="radio"
-                      class="filter__type"
+                      class="expense__filter-type"
                       name="inc_type"
                       id="inc_all"
                       checked
                     />
                     <label for="inc_all">All</label>
                   </div>
-                  <div class="filter__type-holder">
+                  <div class="expense__filter-type-holder">
                     <input
                       type="radio"
-                      class="filter__type"
+                      class="expense__filter-type"
                       name="inc_type"
                       id="inc_card"
                     />
                     <label for="inc_card">Card</label>
                   </div>
-                  <div class="filter__type-holder">
+                  <div class="expense__filter-type-holder">
                     <input
                       type="radio"
-                      class="filter__type"
+                      class="expense__filter-type"
                       name="inc_type"
                       id="inc_cash"
                     />
                     <label for="inc_cash">Cash</label>
                   </div>
-                  <div class="filter__type-holder">
+                  <div class="expense__filter-type-holder">
                     <input
                       type="radio"
-                      class="filter__type"
+                      class="expense__filter-type"
                       name="inc_type"
                       id="inc_starred"
                     />
                     <label for="inc_starred">Starred</label>
                   </div>
-                  <div class="filter__type-holder">
+                  <div class="expense__filter-type-holder">
                     <input
                       type="radio"
-                      class="filter__type"
+                      class="expense__filter-type"
                       name="inc_type"
                       id="inc_important"
                     />
                     <label for="inc_important">Important</label>
                   </div>
                 </div>
-                <div class="expense__sort-btns">
-                  <div class="expense__sort-title">Sort</div>
-                  <button type="button" class="expense__sort-btn" id="high">
-                    Amount Up
-                  </button>
-                  <button type="button" class="expense__sort-btn" id="low">
-                    Amount Down
-                  </button>
+                <div class="expense__filter">
+                  <div class="expense__filter-title">Sort</div>
+                  <div class="expense__filter-type-holder">
+                    <button type="button" class="expense__sort-btn" id="high">
+                      <i class="fas fa-sort-amount-up"></i> Amount Up
+                    </button>
+                  </div>
+                  <div class="expense__filter-type-holder">
+                    <button type="button" class="expense__sort-btn" id="low">
+                      <i class="fas fa-sort-amount-down"></i> Amount Down
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
-            <!-- <div class="expense__date-container">
-                        <a href="#20190304" class="expense__date" data-date="20190304">4</a>
-                        <a href="#20190305" class="expense__date" data-date="20190305">5</a>
-                        <a href="#20190306" class="expense__date" data-date="20190306">6</a>
-                        <a href="#20190307" class="expense__date" data-date="20190307">7</a>
-                        <a href="#20190308" class="expense__date" data-date="20190308">8</a>
-                        <a href="#20190309" class="expense__date" data-date="20190309">9</a>
-                        
-                    </div> -->
-
             <div class="expense__panel">
               <div class="expense__tabs-container">
                 <ul class="expense__tabs">
-                  <li><a href="#eat" class="expense__tab">eat</a></li>
+                  <li>
+                    <a href="#eat" class="expense__tab"
+                      ><img src="img/plain.svg" alt="" /> eat</a
+                    >
+                  </li>
                   <li><a href="#take" class="expense__tab">take</a></li>
                   <li><a href="#see" class="expense__tab">see</a></li>
                   <li><a href="#shop" class="expense__tab">shop</a></li>
@@ -114,8 +141,6 @@
                 </ul>
               </div>
               <form class="expense__search-form">
-                <!-- <button type="submit" class="expense__search-btn">검색</button> -->
-
                 <input
                   type="text"
                   class="expense__search-field"
@@ -127,37 +152,35 @@
               </form>
               <div class="expense__results">
                 <div class="expense__list"></div>
-                <div class="expense__paging"></div>
               </div>
-              <div class="expense__calculator">
-                <div class="add__container">
-                  <form class="add__expense-form">
-                    <input
-                      type="text"
-                      class="add__expense-title"
-                      placeholder="Title"
-                      value=""
-                    />
-                    <input
-                      type="number"
-                      class="add__expense-price"
-                      placeholder="Price"
-                      value=""
-                    />
 
-                    <select class="add__expense-method">
-                      <option value="cash">cash</option>
-                      <option value="card">card</option>
-                    </select>
-                    <button type="button" class="add__expense-btn">추가</button>
-                    <button type="button" class="update__expense-btn">
-                      업데이트
-                    </button>
-                    <button type="button" class="cancel__expense-btn">
-                      취소
-                    </button>
-                  </form>
-                </div>
+              <div class="add__container">
+                <form class="add__expense-form">
+                  <input
+                    type="text"
+                    class="add__expense-title"
+                    placeholder="Title"
+                    value=""
+                  />
+                  <input
+                    type="number"
+                    class="add__expense-price"
+                    placeholder="Price"
+                    value=""
+                  />
+
+                  <select class="add__expense-method">
+                    <option value="cash">cash</option>
+                    <option value="card">card</option>
+                  </select>
+                  <button type="button" class="add__expense-btn">추가</button>
+                  <button type="button" class="update__expense-btn">
+                    업데이트
+                  </button>
+                  <button type="button" class="cancel__expense-btn">
+                    취소
+                  </button>
+                </form>
               </div>
             </div>
             <div class="result">
@@ -181,11 +204,12 @@
               </div>
               <div>
                 <ul class="price">
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
+                  <li><span>eat</span><span class="eat"></span></li>
+                  <li><span>take</span><span class="take"></span></li>
+                  <li><span>see</span><span class="see"></span></li>
+                  <li><span>shop</span><span class="shop"></span></li>
+                  <li><span>sleep</span><span class="sleep"></span></li>
+                  <li><span>etc</span><span class="etc"></span></li>
                 </ul>
               </div>
 
@@ -206,21 +230,3 @@
     </div>
   <script type="text/javascript" src="main.js"></script></body>
 </html>
-
-<style>
-  .update__expense-btn {
-    display: none;
-  }
-
-  .cancel__expense-btn {
-    display: none;
-  }
-
-  .expense__list {
-    margin: 60px 0;
-  }
-
-  .item {
-    margin-bottom: 6px;
-  }
-</style>

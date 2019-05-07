@@ -16,7 +16,8 @@ ExpenseView.registerEvents = function() {
 };
 
 ExpenseView.getEvents = function(target) {
-  const item = target.closest(".item");
+  const item = target.closest(".expense__list-item");
+  console.log(item);
   const itemId = item.dataset.id;
 
   const currentItem = {
@@ -62,13 +63,38 @@ ExpenseView.renderResults = function(data) {
 };
 
 ExpenseView.renderItem = function(item) {
-  const html = `<div class="item" data-id=${item.id}>
-    <span class="item__type">${item.type}</span>
-    <span class="item__title">${item.title}</span>
-    <span class="item__price">${item.price}</span>
-    <button type="button" class="btn-edit">수정</button>
-    <button type="button" class="btn-delete">삭제</button> 
-  </div>`;
+  // const html = `<div class="expense__list-item" data-id=${item.id}>
+  // <div>
+  // <span class="item__type">${
+  //   item.type === "card"
+  //     ? `<i class="far fa-credit-card"></i>`
+  //     : `<i class="far fa-money-bill-alt"></i>`
+  // }</span>
+  //   <span class="item__title">${item.title}</span>
+  //   <span class="item__price">${item.price}</span>
+  // </div>
+
+  //   <div>
+  //   <button type="button" class="btn-edit"><i class="far fa-edit"></i></button>
+  //   <button type="button" class="btn-delete"><i class="far fa-trash-alt"></i></button>
+  //   </div>
+
+  // </div>`;
+
+  const html = `
+  <tr class="expense__list-item" data-id=${item.id}>
+    <td class="type"><span class="item__type">${
+      item.type === "card"
+        ? `<i class="far fa-credit-card"></i>`
+        : `<i class="far fa-money-bill-alt"></i>`
+    }</span></td>
+    <td class="title"><span class="item__title">${item.title}</span></td>
+    <td class="price"><span class="item__price">${item.price}</span></td>
+    <td class="button"><button type="button" class="btn-edit"><i class="far fa-edit"></i></button>
+    <button type="button" class="btn-delete"><i class="far fa-trash-alt"></i></button> </td>
+  </tr>
+  
+  `;
 
   this.el.insertAdjacentHTML("afterbegin", html);
 };
